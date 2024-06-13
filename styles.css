@@ -75,3 +75,30 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+@keyframes jump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%, 75% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+}
+
+.jump {
+    animation: jump 0.3s;
+}
+
+.shake {
+    animation: shake 0.3s;
+}
+
+.correct {
+    color: grey;
+}
+
+.incorrect {
+    color: red;
+}

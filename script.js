@@ -64,9 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < text.length; i++) {
             if (i < typedText.length) {
                 if (text[i] === typedText[i]) {
-                    result += `<span style="color: grey;">${text[i]}</span>`;
+                    result += `<span class="correct">${text[i]}</span>`;
                 } else {
-                    result += `<span style="color: red;">${text[i]}</span>`;
+                    result += `<span class="incorrect">${text[i]}</span>`;
                 }
             } else {
                 result += `<span>${text[i]}</span>`;
@@ -74,25 +74,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return result;
     }
-
+    
     function checkInput() {
         const typedText = userInput.value;
         const targetText = textToType.textContent;
-
+    
         textToType.innerHTML = getHighlightedText(targetText, typedText);
-
+    
+        const spans = textToType.querySelectorAll('span');
+    
+        for (let i = 0; i < typedText.length; i++) {
+            if (typedText[i] === targetText[i]) {
+                spans[i].classList.add('jump');
+                spans[i].classList.remove('shake');
+            } else {
+                spans[i].classList.add('shake');
+                spans[i].classList.remove('jump');
+            }
+        }
+    
         if (typedText === targetText) {
             score++;
             updateScore();
             userInput.value = '';
             textToType.innerHTML = getHighlightedText(getRandomText(), '');
         }
-    }
-
-    function endGame() {
-        clearInterval(timer);
-        userInput.removeEventListener('input', checkInput);
-        alert(`Game over! Your score is ${score}`);
     }
 
     startButton.addEventListener('click', startGame);
