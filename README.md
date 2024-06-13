@@ -1,1 +1,1 @@
-http://drunkplato21.github.com/typing-game
+https://drunkplato21.github.io/typing-game/
