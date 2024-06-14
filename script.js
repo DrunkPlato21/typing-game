@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let timer;
     let textArray = [];
 
-    // Function to fetch phrases from the text file
     function loadPhrases() {
         fetch('phrases.txt')
             .then(response => response.text())
@@ -64,9 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < text.length; i++) {
             if (i < typedText.length) {
                 if (text[i] === typedText[i]) {
-                    result += `<span class="correct jump">${text[i]}</span>`;
+                    result += `<span class="correct">${text[i]}</span>`;
                 } else {
-                    result += `<span class="incorrect shake">${text[i]}</span>`;
+                    result += `<span class="incorrect">${text[i]}</span>`;
                 }
             } else {
                 result += `<span>${text[i]}</span>`;
@@ -82,14 +81,20 @@ document.addEventListener('DOMContentLoaded', () => {
         textToType.innerHTML = getHighlightedText(targetText, typedText);
 
         const spans = textToType.querySelectorAll('span');
+        const currentIndex = typedText.length - 1;
 
-        for (let i = 0; i < typedText.length; i++) {
-            if (typedText[i] === targetText[i]) {
-                spans[i].classList.add('jump');
-                spans[i].classList.remove('shake');
+        if (currentIndex >= 0) {
+            const currentSpan = spans[currentIndex];
+            if (typedText[currentIndex] === targetText[currentIndex]) {
+                currentSpan.classList.remove('jump');
+                void currentSpan.offsetWidth;  // Trigger reflow
+                currentSpan.classList.add('jump');
+                console.log(`Jump animation added to ${currentSpan.textContent}`);
             } else {
-                spans[i].classList.add('shake');
-                spans[i].classList.remove('jump');
+                currentSpan.classList.remove('shake');
+                void currentSpan.offsetWidth;  // Trigger reflow
+                currentSpan.classList.add('shake');
+                console.log(`Shake animation added to ${currentSpan.textContent}`);
             }
         }
 
@@ -109,6 +114,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startButton.addEventListener('click', startGame);
 
-    // Load phrases when the page loads
     loadPhrases();
 });

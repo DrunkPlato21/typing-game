@@ -78,25 +78,29 @@ button:hover {
 
 @keyframes jump {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-8px); }
 }
 
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    25%, 75% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
+    25%, 75% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
 }
 
-.jump {
-    animation: jump 0.3s;
+span {
+    display: inline-block;
 }
 
-.shake {
-    animation: shake 0.3s;
+span.jump {
+    animation: jump 0.2s cubic-bezier(.25,.72,.5,1);
+}
+
+span.shake {
+    animation: shake 0.2s cubic-bezier(.25,.72,.5,1);
 }
 
 .correct {
-    color: grey;
+    color: rgb(100, 228, 100);
 }
 
 .incorrect {
